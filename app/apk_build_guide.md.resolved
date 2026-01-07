@@ -1,0 +1,58 @@
+# Android APK Build Guide
+
+Since this is an Expo project, the standard way to create an APK (Android Package) for installation on a mobile device is using **EAS Build** (Expo Application Services).
+
+## Prerequisites
+
+1.  **Expo Account**: You need an account at [expo.dev](https://expo.dev).
+2.  **EAS CLI**: Install it globally on your machine:
+    ```bash
+    npm install -g eas-cli
+    ```
+
+## Step-by-Step Build Process
+
+### 1. Login to Expo
+Run the following command and follow the prompts to log in:
+```bash
+eas login
+```
+
+### 2. Initialize EAS Configuration
+Initialize the EAS project:
+```bash
+eas build:configure
+```
+
+### 3. Configure `eas.json` for APK
+By default, EAS builds an `.aab` (Android App Bundle) which is for the Play Store. To get an `.apk` for direct installation, you need to update your `eas.json` file.
+
+Add or modify the `preview` or `production` profile in `eas.json`:
+```json
+{
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  }
+}
+```
+
+### 4. Run the Build
+Run the build command for the `preview` profile:
+```bash
+eas build --platform android --profile preview
+```
+
+## What happens next?
+1.  **Cloud Build**: EAS will upload your project and build it on their servers. This usually takes 10-20 minutes.
+2.  **Download link**: Once finished, the terminal will provide a QR code and a direct download link to the `.apk` file.
+3.  **Installation**: 
+    - Open the link on your Android phone to download the file.
+    - Open the `.apk` file to install it. 
+    - You may need to enable "Install from Unknown Sources" in your phone's settings.
+
+> [!TIP]
+> You can also run `eas build:list` at any time to see your previous builds and get download links!

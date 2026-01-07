@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String    @unique
+  role      Role      @default(USER)
+  expenses  Expense[]
+  incomes   Income[]
+  createdAt DateTime  @default(now())
+}
+
+model Expense {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  source      String
+  amount      Float
+  date        DateTime @default(now())
+  userId      String   @db.Uuid
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Income {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  source      String
+  amount      Float
+  date        DateTime @default(now())
+  userId      String   @db.Uuid
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EPaper {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title     String
+  imageUrl  String
+  hotspots  Hotspot[]
+  createdAt DateTime  @default(now())
+}
+
+model Hotspot {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ePaperId  String   @db.Uuid
+  ePaper    EPaper   @relation(fields: [ePaperId], references: [id], onDelete: Cascade)
+  x         Float    // Percentage coordinates (0-100) for responsiveness
+  y         Float
+  width     Float
+  height    Float
+  title     String
+  content   String   @db.Text
+}
