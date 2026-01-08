@@ -40,7 +40,6 @@ export default function DashboardPage() {
   // };
 
   const handleSuccess = async () => {
-    console.log('on success called');
 
     // Close dialogs immediately
     setAddMoneyOpen(false);
@@ -48,7 +47,6 @@ export default function DashboardPage() {
 
     // Use a sequence of updates with delays
     setTimeout(() => {
-      console.log('First refresh batch');
       mutateExpenses();
       mutateIncomes();
       mutateSummary();
@@ -58,7 +56,6 @@ export default function DashboardPage() {
 
       // Second refresh after a delay
       setTimeout(() => {
-        console.log('Second refresh batch');
         mutateExpenses();
         mutateIncomes();
         mutateSummary();
@@ -72,13 +69,6 @@ export default function DashboardPage() {
 
   return (
     <main className="container mx-auto py-8 px-4 space-y-12">
-      <div className="text-center space-y-2">
-        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl text-primary">
-          Dashboard
-        </h1>
-        <p className="text-muted-foreground">Manage your finances with ease and precision.</p>
-      </div>
-
       <SummaryStats
         onAddMoney={() => setAddMoneyOpen(true)}
         onAddExpense={() => setAddExpenseOpen(true)}

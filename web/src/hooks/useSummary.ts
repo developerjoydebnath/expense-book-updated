@@ -96,7 +96,6 @@ export function useSummary() {
 
   // Simple mutate function without side effects
   const mutate = useCallback(() => {
-    console.log('useSummary mutate() called');
     reexecute({ requestPolicy: 'network-only' });
   }, [reexecute]);
 

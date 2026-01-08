@@ -96,15 +96,12 @@ export function IncomeGraph({ refreshTrigger }: { refreshTrigger?: number }) {
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    console.log('IncomeGraph useEffect - refreshTrigger:', refreshTrigger);
-    
     if (!hasMounted.current) {
       hasMounted.current = true;
       return;
     }
     
     if (refreshTrigger !== undefined && refreshTrigger !== prevRefreshTrigger.current) {
-      console.log('IncomeGraph: Refresh trigger changed, calling mutate()');
       prevRefreshTrigger.current = refreshTrigger;
       
       setTimeout(() => {

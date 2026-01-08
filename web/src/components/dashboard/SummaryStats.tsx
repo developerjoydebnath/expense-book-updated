@@ -160,8 +160,6 @@ export function SummaryStats({
 
   if (!summary) return <div>No data available</div>;
 
-  console.log('Rendering summary data:', summary);
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <Card className="bg-linear-to-br from-primary/20 to-primary/5 border-primary/20 shadow-lg">

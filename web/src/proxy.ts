@@ -18,5 +18,8 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|api/auth/login|api/auth/register|api/auth/forgot-password).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|images|api/auth/login|api/auth/register|api/auth/forgot-password).*)",
+  ],
 };
+

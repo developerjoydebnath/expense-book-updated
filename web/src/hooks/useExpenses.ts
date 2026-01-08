@@ -83,7 +83,6 @@ export function useExpenses(dateFilter?: string, limit?: number, orderBy?: Recor
 
   // Enhanced mutate function
   const mutate = () => {
-    console.log('useExpenses mutate() called');
     return reexecute({
       requestPolicy: 'network-only', // Force network request
     });

@@ -8,6 +8,7 @@ import { LayoutDashboard, LogOut, Receipt, Users, Wallet } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import Logo from "./shared/Logo";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -36,7 +37,7 @@ export function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-8">
           <Link href="/dashboard" className="flex items-center space-x-2">
-            <span className="text-xl font-extrabold tracking-tighter text-primary">EXPENSEBOOK</span>
+          <Logo className="h-10 sm:h-14 w-full" />
           </Link>
           <div className="hidden md:flex items-center space-x-6">
             {filteredNavItems.map((item) => (
@@ -54,10 +55,11 @@ export function Navbar() {
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
+          
           <ThemeSwitcher />
           <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground hover:text-destructive">
-            <LogOut size={18} className="mr-2" />
+            <LogOut size={18} className="sm:mr-2" />
             <span className="hidden sm:inline">Logout</span>
           </Button>
         </div>

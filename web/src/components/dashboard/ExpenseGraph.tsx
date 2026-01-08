@@ -93,7 +93,6 @@ export function ExpenseGraph({ refreshTrigger }: { refreshTrigger?: number }) {
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    console.log('ExpenseGraph useEffect - refreshTrigger:', refreshTrigger);
     
     if (!hasMounted.current) {
       hasMounted.current = true;
@@ -101,7 +100,6 @@ export function ExpenseGraph({ refreshTrigger }: { refreshTrigger?: number }) {
     }
     
     if (refreshTrigger !== undefined && refreshTrigger !== prevRefreshTrigger.current) {
-      console.log('ExpenseGraph: Refresh trigger changed, calling mutate()');
       prevRefreshTrigger.current = refreshTrigger;
       
       setTimeout(() => {

@@ -83,7 +83,6 @@ export function useIncomes(dateFilter?: string, limit?: number, orderBy?: Record
 
   // Enhanced mutate function
   const mutate = () => {
-    console.log('useIncomes mutate() called');
     return reexecute({
       requestPolicy: 'network-only', // Force network request
     });

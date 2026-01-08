@@ -138,8 +138,6 @@ export function MonthlyExpenseTable({ refreshTrigger }: { refreshTrigger?: numbe
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    console.log('MonthlyExpenseTable useEffect - refreshTrigger:', refreshTrigger);
-    
     // Skip on initial mount
     if (!hasMounted.current) {
       hasMounted.current = true;
@@ -148,7 +146,6 @@ export function MonthlyExpenseTable({ refreshTrigger }: { refreshTrigger?: numbe
     
     // Only run if refreshTrigger actually changed
     if (refreshTrigger !== undefined && refreshTrigger !== prevRefreshTrigger.current) {
-      console.log('MonthlyExpenseTable: Refresh trigger changed, calling mutate()');
       prevRefreshTrigger.current = refreshTrigger;
       
       // Force mutation with a small delay

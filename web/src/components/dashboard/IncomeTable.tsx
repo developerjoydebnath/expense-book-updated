@@ -308,8 +308,6 @@ export function IncomeTable({
   const hasMounted = useRef(false);
 
   useEffect(() => {
-    console.log('IncomeTable useEffect - refreshTrigger:', refreshTrigger);
-    
     // Skip on initial mount
     if (!hasMounted.current) {
       hasMounted.current = true;
@@ -318,7 +316,6 @@ export function IncomeTable({
     
     // Only run if refreshTrigger actually changed
     if (refreshTrigger !== undefined && refreshTrigger !== prevRefreshTrigger.current) {
-      console.log('IncomeTable: Refresh trigger changed, calling mutate()');
       prevRefreshTrigger.current = refreshTrigger;
       
       // Force mutation with a small delay
