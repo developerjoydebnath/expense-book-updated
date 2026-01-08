@@ -20,19 +20,53 @@ export default function DashboardPage() {
   const [addMoneyOpen, setAddMoneyOpen] = useState(false);
   const [addExpenseOpen, setAddExpenseOpen] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  
+
+  // Initialize hooks early, even if data is 0
   const { mutate: mutateExpenses } = useExpenses();
   const { mutate: mutateIncomes } = useIncomes();
   const { mutate: mutateSummary } = useSummary();
 
-  const handleSuccess = () => {
-    mutateExpenses();
-    mutateIncomes();
-    mutateSummary();
-    setRefreshTrigger(prev => prev + 1);
+  // const handleSuccess = () => {
+  //   // Use setTimeout to ensure mutations happen after data is saved
+  //   setTimeout(() => {
+  //     mutateExpenses();
+  //     mutateIncomes();
+  //     mutateSummary();
+  //     setRefreshTrigger(prev => prev + 1);
+  //   }, 100);
+
+  //   setAddMoneyOpen(false);
+  //   setAddExpenseOpen(false);
+  // };
+
+  const handleSuccess = async () => {
+    console.log('on success called');
+
+    // Close dialogs immediately
     setAddMoneyOpen(false);
     setAddExpenseOpen(false);
+
+    // Use a sequence of updates with delays
+    setTimeout(() => {
+      console.log('First refresh batch');
+      mutateExpenses();
+      mutateIncomes();
+      mutateSummary();
+
+      // Increment refreshTrigger to trigger all useEffects
+      setRefreshTrigger(prev => prev + 1);
+
+      // Second refresh after a delay
+      setTimeout(() => {
+        console.log('Second refresh batch');
+        mutateExpenses();
+        mutateIncomes();
+        mutateSummary();
+        setRefreshTrigger(prev => prev + 1);
+      }, 300);
+    }, 150);
   };
+
 
   const today = format(new Date(), "yyyy-MM-dd");
 
@@ -44,10 +78,10 @@ export default function DashboardPage() {
         </h1>
         <p className="text-muted-foreground">Manage your finances with ease and precision.</p>
       </div>
-      
-      <SummaryStats 
-        onAddMoney={() => setAddMoneyOpen(true)} 
-        onAddExpense={() => setAddExpenseOpen(true)} 
+
+      <SummaryStats
+        onAddMoney={() => setAddMoneyOpen(true)}
+        onAddExpense={() => setAddExpenseOpen(true)}
         refreshTrigger={refreshTrigger}
       />
 
@@ -81,11 +115,11 @@ export default function DashboardPage() {
           <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-primary">
             Last 5 Incomes
           </h2>
-          <IncomeTable 
-            hideFilter 
-            limit={5} 
-            orderBy={[{ date: "DescNullsFirst" }]} 
-            refreshTrigger={refreshTrigger} 
+          <IncomeTable
+            hideFilter
+            limit={5}
+            orderBy={[{ date: "DescNullsFirst" }]}
+            refreshTrigger={refreshTrigger}
           />
         </div>
       </div>

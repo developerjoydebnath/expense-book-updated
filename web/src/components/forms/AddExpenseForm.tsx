@@ -49,7 +49,9 @@ export function AddExpenseForm({ onSuccess }: { onSuccess?: () => void }) {
         amount: "",
         date: format(new Date(), "yyyy-MM-dd")
       });
+      console.log('before on success')
       onSuccess?.();
+      console.log('after on success')
     } catch (e: unknown) {
       toast.error(e instanceof Error ? e.message : "Failed to add expense");
     }
